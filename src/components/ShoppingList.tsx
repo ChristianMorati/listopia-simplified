@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
@@ -5,7 +6,7 @@ import ShoppingListItem from "./ShoppingListItem";
 import ConfirmDialog from "./ConfirmDialog";
 import AddItemForm from "./AddItemForm";
 import { useShoppingList, ShoppingItem } from "@/hooks/useShoppingList";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const ShoppingList: React.FC = () => {
   const { items, addItem, toggleItem, editItem, deleteItem, clearItems } = useShoppingList();
