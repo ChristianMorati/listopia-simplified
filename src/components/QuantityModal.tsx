@@ -46,7 +46,7 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Add Quantity for {itemName}</DialogTitle>
