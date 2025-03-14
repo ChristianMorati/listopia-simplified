@@ -38,6 +38,11 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({
   };
 
   const getQuantityLabel = () => {
+    // Guard against undefined quantity
+    if (item.quantity === undefined) {
+      return "1 x"; // Default to 1 unit if quantity is undefined
+    }
+    
     const formattedQuantity = item.unit === 'unit' 
       ? Math.round(item.quantity) 
       : item.quantity.toFixed(2);

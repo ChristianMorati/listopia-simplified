@@ -36,7 +36,9 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
   const [unit, setUnit] = useState<string>("unit");
 
   const handleConfirm = () => {
-    onConfirm(quantity, unit);
+    // Ensure quantity is a valid number before calling onConfirm
+    const validQuantity = isNaN(quantity) ? 1 : quantity;
+    onConfirm(validQuantity, unit);
     onClose();
   };
 
