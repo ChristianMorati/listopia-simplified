@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 export interface ShoppingItem {
   id: string;
   text: string;
+  quantity: number;
+  unit: string;
   completed: boolean;
 }
 
@@ -32,12 +34,14 @@ export function useShoppingList() {
   }, [items, isLoading]);
 
   // Add a new item to the list
-  const addItem = (text: string) => {
+  const addItem = (text: string, quantity: number = 1, unit: string = 'unit') => {
     if (text.trim() === '') return;
     
     const newItem: ShoppingItem = {
       id: crypto.randomUUID(),
       text: text.trim(),
+      quantity,
+      unit,
       completed: false,
     };
     

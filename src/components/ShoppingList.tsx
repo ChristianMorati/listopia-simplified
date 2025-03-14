@@ -12,8 +12,8 @@ const ShoppingList: React.FC = () => {
   const { items, addItem, toggleItem, editItem, deleteItem, clearItems } = useShoppingList();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  const handleAddItem = (text: string) => {
-    addItem(text);
+  const handleAddItem = (text: string, quantity: number, unit: string) => {
+    addItem(text, quantity, unit);
     toast.success("Item added to your list");
   };
 
