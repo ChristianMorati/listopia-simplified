@@ -57,29 +57,30 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
             <Label htmlFor="unit-type" className="text-right">
               Measurement
             </Label>
-            <Select 
-              value={unit} 
-              onValueChange={setUnit}
-              className="col-span-3"
-            >
-              <SelectTrigger id="unit-type">
-                <SelectValue placeholder="Select measurement type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="unit">
-                  <div className="flex items-center">
-                    <Package className="mr-2 h-4 w-4" />
-                    <span>Unit(s)</span>
-                  </div>
-                </SelectItem>
-                <SelectItem value="kg">
-                  <div className="flex items-center">
-                    <Weight className="mr-2 h-4 w-4" />
-                    <span>Kilogram(s)</span>
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="col-span-3">
+              <Select 
+                value={unit} 
+                onValueChange={setUnit}
+              >
+                <SelectTrigger id="unit-type">
+                  <SelectValue placeholder="Select measurement type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="unit">
+                    <div className="flex items-center">
+                      <Package className="mr-2 h-4 w-4" />
+                      <span>Unit(s)</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="kg">
+                    <div className="flex items-center">
+                      <Weight className="mr-2 h-4 w-4" />
+                      <span>Kilogram(s)</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
