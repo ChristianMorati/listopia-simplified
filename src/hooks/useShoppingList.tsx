@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 export interface ShoppingItem {
@@ -57,13 +56,11 @@ export function useShoppingList() {
     );
   };
 
-  // Edit an item's text
-  const editItem = (id: string, text: string) => {
-    if (text.trim() === '') return;
-    
+  // Edit an item's text, quantity, and unit
+  const editItem = (id: string, text: string, quantity: number, unit: string) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, text: text.trim() } : item
+        item.id === id ? { ...item, text, quantity, unit } : item
       )
     );
   };

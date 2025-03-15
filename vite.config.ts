@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  base: "/vite_react_shadcn_ts",
   plugins: [
     react(),
     mode === 'development' &&

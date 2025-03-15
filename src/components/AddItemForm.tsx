@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +14,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onAddItem, className = "" }) 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus the input on initial render
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -32,8 +30,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onAddItem, className = "" }) 
   const handleQuantityConfirm = (quantity: number, unit: string) => {
     onAddItem(text, quantity, unit);
     setText("");
-    
-    // Re-focus the input after adding an item
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -57,10 +53,9 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onAddItem, className = "" }) 
           disabled={!text.trim()}
         >
           <Plus className="h-5 w-5" />
-          <span className="sr-only">Add item</span>
+          <span className="sr-only">Adicionar item</span>
         </Button>
       </form>
-
       <QuantityModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

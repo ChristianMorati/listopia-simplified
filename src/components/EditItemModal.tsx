@@ -1,62 +1,73 @@
-import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Package, Weight } from "lucide-react";
 
-interface QuantityModalProps {
+interface EditItemModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (quantity: number, unit: string) => void;
-  itemName: string;
+  onSave: (text: string, quantity: number, unit: string) => void;
+  initialText: string;
+  initialQuantity: number;
+  initialUnit: string;
+  isEditing?: boolean;
 }
 
-const QuantityModal: React.FC<QuantityModalProps> = ({
+const EditItemModal: React.FC<EditItemModalProps> = ({
   isOpen,
   onClose,
-  onConfirm,
-  itemName
+  onSave,
+  initialText,
+  initialQuantity,
+  initialUnit,
+  isEditing = false,
 }) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const [unit, setUnit] = useState<string>("unit");
+  const [text, setText] = useState(initialText);
+  const [quantity, setQuantity] = useState(initialQuantity);
+  const [unit, setUnit] = useState(initialUnit);
 
-  const handleConfirm = () => {
-    const validQuantity = isNaN(quantity) ? 1 : quantity;
-    onConfirm(validQuantity, unit);
-    onClose();
-  };
+  useEffect(() => {
+    setText(initialText);
+    setQuantity(initialQuantity);
+    setUnit(initialUnit);
+  }, [initialText, initialQuantity, initialUnit]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    setQuantity(isNaN(value) ? 0 : value);
+  const handleSave = () => {
+    if (text.trim()) {
+      onSave(text, quantity, unit);
+      onClose();
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Quantity for {itemName}</DialogTitle>
+          <DialogTitle>{isEditing ? "Edit Item" : "Add Quantity for " + initialText}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
+          {isEditing && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="item-name" className="text-right">
+                Item Name
+              </Label>
+              <Input
+                id="item-name"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Item name"
+                className="col-span-3"
+              />
+            </div>
+          )}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="unit-type" className="text-right">
               Measurement
             </Label>
-            <div className="col-span-3">
+            <div className="col-span-3 p-5">
               <Select
                 value={unit}
                 onValueChange={setUnit}
@@ -89,7 +100,7 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
               id="quantity"
               type="number"
               value={quantity}
-              onChange={handleInputChange}
+              onChange={(e) => setQuantity(Number(e.target.value))}
               min={unit === "unit" ? 1 : 0.01}
               step={unit === "unit" ? 1 : 0.01}
               className="col-span-3"
@@ -100,8 +111,8 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
           <Button variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button onClick={handleConfirm}>
-            Add to List
+          <Button onClick={handleSave}>
+            Save
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -109,4 +120,4 @@ const QuantityModal: React.FC<QuantityModalProps> = ({
   );
 };
 
-export default QuantityModal;
+export default EditItemModal;

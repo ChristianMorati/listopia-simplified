@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import ShoppingListItem from "./ShoppingListItem";
 import ConfirmDialog from "./ConfirmDialog";
 import AddItemForm from "./AddItemForm";
-import { useShoppingList, ShoppingItem } from "@/hooks/useShoppingList";
+import { useShoppingList } from "@/hooks/useShoppingList";
 import { toast } from "sonner";
 
 const ShoppingList: React.FC = () => {
@@ -28,8 +27,8 @@ const ShoppingList: React.FC = () => {
     }
   };
 
-  const handleEditItem = (id: string, text: string) => {
-    editItem(id, text);
+  const handleEditItem = (id: string, text: string, quantity: number, unit: string) => {
+    editItem(id, text, quantity, unit);
     toast.success("Item updated");
   };
 
@@ -62,7 +61,7 @@ const ShoppingList: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <span className="text-sm font-medium text-muted-foreground">
-                {items.filter(item => !item.completed).length} items remaining
+                {items.filter(item => !item.completed).length} items restantes
               </span>
             </div>
             {items.length > 0 && (
@@ -73,7 +72,7 @@ const ShoppingList: React.FC = () => {
                 onClick={() => setIsConfirmOpen(true)}
               >
                 <Trash2 className="h-4 w-4 mr-1" />
-                Clear All
+                Limpar Tudo
               </Button>
             )}
           </div>
@@ -92,8 +91,8 @@ const ShoppingList: React.FC = () => {
         </>
       ) : (
         <div className="text-center py-12 text-muted-foreground animate-fade-in">
-          <p className="text-lg font-medium mb-2">Your shopping list is empty</p>
-          <p className="text-sm">Add some items to get started</p>
+          <p className="text-lg font-medium mb-2">Sua lista de compras está vazia.</p>
+          <p className="text-sm">Começe adicionando alguns items!</p>
         </div>
       )}
 
@@ -101,10 +100,10 @@ const ShoppingList: React.FC = () => {
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}
         onConfirm={handleClearItems}
-        title="Clear Shopping List"
-        description="Are you sure you want to remove all items from your shopping list? This action cannot be undone."
-        confirmText="Clear All"
-        cancelText="Cancel"
+        title="Limpar o carrinho"
+        description="Você tem certeza que quer remover todos os items?"
+        confirmText="Limpar Carrinho"
+        cancelText="Cancelar"
       />
     </div>
   );
