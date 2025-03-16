@@ -14,11 +14,11 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Router>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </TooltipProvider>
   </QueryClientProvider>
 );
