@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "/listopia-simplified/",
+  base: "/",
   plugins: [
     react(),
     mode === 'development' &&
